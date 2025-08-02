@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descargar Template</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 flex items-center justify-center min-h-screen">
+
+    <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-lg w-full mx-4">
+        
+        <!-- Icono de descarga -->
+        <div class="mx-auto bg-slate-100 rounded-full h-20 w-20 flex items-center justify-center mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+            </svg>
+        </div>
+
+        <!-- Título y descripción -->
+        <h1 class="text-2xl font-bold text-slate-800 mb-2">Descargar Template</h1>
+        <p class="text-slate-600 mb-8">Haz clic en el botón de abajo para descargar el archivo de texto (.txt) con la plantilla de correo.</p>
+
+        <!-- Botón de descarga -->
+        <a id="downloadLink" 
+           href="#" 
+           download="template_correo.txt"
+           class="inline-block bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-transform transform hover:scale-105">
+            Descargar Bloc de Notas
+        </a>
+
+        <!-- Mensaje de confirmación -->
+        <p id="confirmation" class="text-green-600 mt-4 text-sm font-medium hidden">¡Descarga iniciada!</p>
+    </div>
+
+    <script>
+        // Contenido del archivo de texto
+        const fileContent = `Buenas tardes, ¿Cómo están?
+
+Para poder enviarles las credenciales de forma segura, necesitamos que por favor generen una clave GPG y nos envíen su clave pública.
+El proceso es simple:
+1 - Generan la clave con una herramienta GPG (como Gpg4win).
+2 - Exportan la clave PÚBLICA.
+3 - Nos envían ese archivo en respuesta a este correo.
+4 - Una vez que la tengamos, ciframos sus credenciales y se las enviamos de vuelta.
+
+Quedamos atentos. 
+¡Saludos!`;
+
+        // Obtener el elemento del enlace de descarga
+        const downloadLink = document.getElementById('downloadLink');
+        const confirmationMessage = document.getElementById('confirmation');
+
+        // Crear un "Data URL" para el contenido del archivo
+        // Esto permite que el archivo se genere directamente en el navegador
+        const dataUrl = 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileContent);
+
+        // Asignar el Data URL al atributo href del enlace
+        downloadLink.href = dataUrl;
+
+        // Mostrar un mensaje de confirmación al hacer clic
+        downloadLink.addEventListener('click', () => {
+            confirmationMessage.classList.remove('hidden');
+            // Ocultar el mensaje después de unos segundos
+            setTimeout(() => {
+                confirmationMessage.classList.add('hidden');
+            }, 3000);
+        });
+    </script>
+
+</body>
+</html>
